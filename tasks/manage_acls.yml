@@ -1,6 +1,6 @@
 ---
 - name: Configurar ACLs
-  community.network.huawei_config:
+  community.network.ce_config:
     lines: "{{ lookup('template', 'acl_config.j2') }}"
   notify: Apply ACL changes
-  when: inventory_hostname in groups['huawei']
+  when: inventory_hostname in groups['huawei'] and acl_rules | length > 0

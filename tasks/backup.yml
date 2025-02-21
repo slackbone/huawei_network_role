@@ -1,20 +1,33 @@
+---
+- name: Coletar informações do sistema
+  delegate_to: localhost
+  ansible.builtin.setup:
+
 - name: Fazer backup da configuração
-  community.network.huawei_command:
+  community.network.ce_command:
     commands:
       - display current-configuration
   register: backup_output
   when: inventory_hostname in groups['huawei']
 
-- name: Criar diretório de backup no localhost
+- name: Criar diretório de backup no localhost se não existir
   delegate_to: localhost
   ansible.builtin.file:
     path: "{{ backup_path }}"
     state: directory
     mode: '0755'
+  when: not backup_path is exists
 
 - name: Salvar backup no localhost
   delegate_to: localhost
   ansible.builtin.copy:
     content: "{{ backup_output.stdout | join('\n') }}"
-    dest: "{{ backup_path }}/huawei_config_{{ ansible_date_time.epoch }}_{{ inventory_hostname }}.cfg"
+    dest: "{{ backup_path }}/huawei_config_{{ ansible_date_time['epoch'] }}_{{ inventory_hostname }}.cfg"
     mode: '0644'
+
+- name: Manter apenas os últimos 5 backups
+  delegate_to: localhost
+  ansible.builtin.shell: |
+    ls -1t {{ backup_path }}/huawei_config_*_{{ inventory_hostname }}.cfg | tail -n +{{ backup_retention + 1 }} | xargs -r rm -f
+  args:
+    executable: /bin/bash

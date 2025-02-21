@@ -10,6 +10,7 @@ As seguintes variáveis devem ser definidas nos formulários do Red Hat Ansible 
 - `switch_enable_password`: Senha para modo privilegiado do switch. *(Exemplo: `enable_password`)*
 - `switch_ip`: Endereço IP do switch. *(Exemplo: `192.168.1.1`)*
 - `acl_rules`: Lista de ACLs a configurar. *(Formato JSON/YAML: ver exemplo abaixo)*
+- `backup_retention`: Número máximo de backups a serem mantidos. *(Padrão: 5)*
 
 ### Exemplo de ACL Rules:
 ```yaml

@@ -2,4 +2,4 @@
 - import_tasks: backup.yml
   when: inventory_hostname in groups['huawei']
 - import_tasks: manage_acls.yml
-  when: inventory_hostname in groups['huawei']
+  when: inventory_hostname in groups['huawei'] and acl_rules | length > 0

@@ -1,0 +1,6 @@
+---
+backup_path: "/var/backups/huawei"
+switch_username: "admin"
+switch_password: "password"
+switch_enable_password: "enable_password"
+acl_rules: []

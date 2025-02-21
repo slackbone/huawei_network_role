@@ -1,0 +1,21 @@
+---
+- name: Criar diretório de backup
+  ansible.builtin.file:
+    path: "{{ backup_path }}"
+    state: directory
+    mode: '0755'
+  when: inventory_hostname in groups['huawei']
+
+- name: Fazer backup da configuração
+  community.network.huawei_command:
+    commands:
+      - display current-configuration
+  register: backup_output
+  when: inventory_hostname in groups['huawei']
+
+- name: Salvar backup no arquivo
+  ansible.builtin.copy:
+    content: "{{ backup_output.stdout | join('\n') }}"
+    dest: "{{ backup_path }}/huawei_config_{{ ansible_date_time.epoch }}.cfg"
+    mode: '0644'
+  when: inventory_hostname in groups['huawei']

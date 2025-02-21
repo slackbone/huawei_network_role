@@ -1,0 +1,6 @@
+{% for acl in acl_rules %}
+acl {{ acl.id }}
+  {% for rule in acl.rules %}
+  rule {{ rule.number }} permit {{ rule.protocol }} source {{ rule.src }} destination {{ rule.dst }}
+  {% endfor %}
+{% endfor %}

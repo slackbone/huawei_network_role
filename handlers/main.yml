@@ -1,0 +1,6 @@
+---
+- name: Apply ACL changes
+  huawei_command:
+    commands:
+      - acl apply all
+  when: acl_rules | length > 0

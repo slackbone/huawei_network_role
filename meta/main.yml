@@ -1,0 +1,13 @@
+---
+dependency: []
+galaxy_info:
+  author: Roberto Menezes
+  description: Role para backup e gerenciamento de ACLs em switches Huawei
+  company: Chaintech
+  license: Apache
+  min_ansible_version: "2.9"
+  galaxy_tags:
+    - huawei
+    - network
+    - backup
+    - acl

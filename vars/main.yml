@@ -1,0 +1,9 @@
+---
+switch_ip: "192.168.1.1"
+acl_rules:
+  - id: 3000
+    rules:
+      - number: 10
+        protocol: tcp
+        src: any
+        dst: 192.168.1.100 80

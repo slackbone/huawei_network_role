@@ -1,6 +1,6 @@
 ---
-backup_path: "/var/backups/huawei"
-switch_username: "admin"
-switch_password: "password"
-switch_enable_password: "enable_password"
-acl_rules: []
+backup_path: "{{ backup_path | default('/var/backups/huawei') }}"
+switch_username: "{{ switch_username | default('admin') }}"
+switch_password: "{{ switch_password | default('password') }}"
+switch_enable_password: "{{ switch_enable_password | default('enable_password') }}"
+acl_rules: "{{ acl_rules | default([]) }}"
